@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Todo List - 智能待办清单</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-decorations">
+    <div class="gradient-sphere sphere-1"></div>
+    <div class="gradient-sphere sphere-2"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-group">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+        </div>
+        <div>
+          <h1>AI Todo List</h1>
+          <p class="subtitle">现代化高效待办任务管理系统</p>
+        </div>
+      </div>
+      
+      <!-- Stats Overview -->
+      <div class="stats-card">
+        <div class="stat-item">
+          <span class="stat-value" id="totalCount">0</span>
+          <span class="stat-label">总任务</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" id="completedCount">0</span>
+          <span class="stat-label">已完成</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Card -->
+    <main class="main-card">
+      <!-- Input Section -->
+      <section class="input-section">
+        <form id="todoForm" class="todo-form">
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="todoInput" 
+              class="todo-input" 
+              placeholder="输入新的待办任务... (按回车或点击添加)"
+              autocomplete="off"
+              required
+            >
+            <button type="submit" id="addBtn" class="btn btn-primary" title="添加任务">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>添加任务</span>
+            </button>
+          </div>
+
+          <!-- Quick Tag Chips -->
+          <div class="quick-tags">
+            <span class="quick-tags-title">快捷标签:</span>
+            <button type="button" class="tag-chip" data-tag="🔥 重要紧急">🔥 重要紧急</button>
+            <button type="button" class="tag-chip" data-tag="💡 创意想法">💡 创意想法</button>
+            <button type="button" class="tag-chip" data-tag="🛠️ 需求开发">🛠️ 需求开发</button>
+            <button type="button" class="tag-chip" data-tag="📚 学习提升">📚 学习提升</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Filter & Action Bar -->
+      <section class="toolbar">
+        <div class="filter-tabs" role="tablist">
+          <button class="filter-tab active" data-filter="all">全部 <span class="badge" id="badgeAll">0</span></button>
+          <button class="filter-tab" data-filter="active">未完成 <span class="badge" id="badgeActive">0</span></button>
+          <button class="filter-tab" data-filter="completed">已完成 <span class="badge" id="badgeCompleted">0</span></button>
+        </div>
+
+        <div class="toolbar-actions">
+          <button id="clearCompletedBtn" class="btn-text" title="清理已完成任务">清理已完成</button>
+        </div>
+      </section>
+
+      <!-- Todo List Section -->
+      <section class="list-section">
+        <ul id="todoList" class="todo-list" aria-label="待办事项列表">
+          <!-- 动态渲染任务列表 -->
+        </ul>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">
+            <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p class="empty-title">当前没有待办事项</p>
+          <p class="empty-desc">在上方输入框中添加你的第一条任务吧！</p>
+        </div>
+      </section>
+
+      <!-- Footer / Status Bar -->
+      <footer class="card-footer">
+        <div class="sync-status">
+          <span class="status-dot"></span>
+          <span>数据已实时自动保存至本地 (localStorage)</span>
+        </div>
+        <div class="shortcuts-hint">
+          <span>提示: 点击任务文字或勾选框即可切换完成状态</span>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
