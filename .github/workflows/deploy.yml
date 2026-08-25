@@ -1,0 +1,65 @@
+name: Deploy static site to GitHub Pages
+
+# 什么时候触发
+on:
+  push:
+    branches:
+      - main
+
+  # 允许手动点击运行
+  workflow_dispatch:
+
+
+# 权限设置
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+
+# 防止多个部署同时运行
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+
+jobs:
+
+  deploy:
+
+    # 使用 GitHub Pages 环境
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # 使用 GitHub 提供的 Ubuntu 云服务器
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+      # 第一步：
+      # 把仓库代码下载到云服务器
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+
+      # 第二步：
+      # 初始化 GitHub Pages 配置
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+
+      # 第三步：
+      # 把网站文件打包成部署文件
+      - name: Upload website files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+
+      # 第四步：
+      # 发布网站
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
