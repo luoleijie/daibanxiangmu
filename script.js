@@ -53,7 +53,7 @@ class TodoApp {
         this.todos = [
           {
             id: 'sample-1',
-            text: '欢迎使用 AI Todo List 智能待办清单 🎉',
+            text: '欢迎使用 雷雷 AI Todo Lab 智能待办清单 🎉',
             completed: false,
             tag: '💡 创意想法',
             createdAt: Date.now() - 1000 * 60 * 10
